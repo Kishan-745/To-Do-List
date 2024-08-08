@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
+import TaskInput from './component/TaskInput';
+import TaskItem from './component/TaskItem';
+
 function App() {
+  const [toDoList, setToDoList] = useState([]);
+
+  const addTask = (taskName) =>{
+    const newTask = {
+      taskName ,
+      checked : false
+    };
+    setToDoList([...toDoList, newTask]);
+  }
+  console.log(toDoList);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <>
+      <div className='container'>
+        <h1>My Todo-List</h1>
+
+        <TaskInput addTask={addTask}/>
+
+        <div className='toDoList'>
+          <span>To Do</span>
+          <ul className='list-items'>
+            {toDoList.map((item) => {< TaskItem />})}
+          </ul>
+        </div>
+      </div>
+      </>
+  )
 }
 
 export default App;
+
+
